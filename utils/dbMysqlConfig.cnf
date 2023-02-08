@@ -1,0 +1,14 @@
+[dbMysql]
+host = 10.25.14.58
+port = 3306
+user = root
+password = root123456
+db_name = easydemo_db
+
+
+[jiraMysql]
+host = 192.168.22.19
+port = 3306
+user = chasrts
+password = Gqh4DRexOpnk
+db_name = chasrts

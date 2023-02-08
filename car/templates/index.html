@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<title>在线车牌识别</title>
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="icon" href="/static/images/favicon.ico" type="image/x-icon" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<link rel="stylesheet"href="/static/iview/styles/iview.css">
+<style>
+    .home-container {
+        width: 600px;
+        margin: 0 auto;
+        margin-top:200px;
+        position: relative;
+    }
+    [v-cloak] {
+		display: none;
+	}
+</style>
+<body>
+    <div id="app" v-cloak>
+            <div class="home-container">
+                <template>
+                    <tabs>
+                        <tab-pane @click="tab(0)" icon="md-car" label="车牌识别"/>
+                        <template>
+                            <Upload
+                                    multiple
+                                    type="drag"
+                                    name="licensePlate"
+                                    action="/upload"
+                                    :show-upload-list="false"
+                                    :on-success="handleSuccess"
+                                    :format="['png','jpg','jpeg','bmp']"
+                                    :max-size="1024">
+                                <div style="padding: 20px 0">
+                                    <Icon type="ios-cloud-upload" size="52" style="color: #3399ff"></Icon>
+                                    <p>点击或将图片拖拽到这里上传，支持格式 [jpg、bmp、png、jpeg]</p>
+                                </div>
+                            </Upload>
+                        </template>
+                        </tab-pane>
+                    </tabs>
+                </template>
+                <div style="margin-top:10px" v-html="licensePlate"></div>
+            </div>
+    </div>
+     <script type="text/javascript" src="/static/vue/vue.min.js" ></script>
+    <script type="text/javascript" src="/static/iview/iview.min.js"></script>
+    <script>
+         var vm = new Vue({
+	    	el : '#app',
+	    	data:{
+	    	    licensePlate:''
+	    	},
+            methods : {
+                handleSuccess:function(response, file, fileList){
+                    if(response.status){
+                        vm.licensePlate = response.license_plate;
+                        this.$Message.success('车牌号：'+vm.licensePlate);
+                    }else{
+                        this.$Message.error(response.msg);
+                    }
+                }
+            },
+            created : function() {
+                this.$Notice.info({
+                    title: '欢迎体验在线车牌识别系统',
+                    desc: ''
+                });
+	    	}
+         });
+    </script>
+</body>
+</html>
