@@ -28,5 +28,6 @@ for (x, y, w, h) in faces:
     img = ChineseText.cv2ImgAddText(img, gender, x + h, y, color, 30)
 
 cv2.imshow("Image", img)
+
 cv2.waitKey(0)
 cv2.destroyAllWindows()
